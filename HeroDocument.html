@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8">
+    <title>Heldendokument</title>
+    <script>
+        let hero_data=Object();
+    </script>
+  </head>
+  <body>
+      <form>
+      <div id="name">
+          <label for="charname">Name:
+          <input id="charname" name="charname" onchange="update_hero(hero_data,'name',charname.value)">
+          </label>
+      </div>
+      <div id="race">
+          <label for="charrace">Rasse:
+          <input id="charrace" name="charrace" onchange="update_hero(hero_data,'race',charrace.value)">
+          </label>
+      </div>
+      <div id="classes">
+          <div id= "class_1">
+                <label for="class_1_name">Klasse:
+                <input id="class_1_name" name="class_1_name" onchange="update_hero_class_changed(hero_data,1,class_1_name.value,class_1_level.value)">
+                </label>
+                <label for="class_1_level">Stufe:
+                    <input id="class_1_level" name="class_1_level" onchange="update_hero_class_changed(hero_data,1,class_1_name.value,class_1_level.value)">
+                </label>
+          </div>
+      </div>
+      <div id="image"></div>
+      <div id="description">
+          <textarea id="chardescription" name="chardescription" cols="100" rows="10" onchange="update_hero(hero_data,'description',chardescription.value)">Heldenbeschreibung</textarea>
+      </div>
+      <div id="attributes"></div>
+      <div id="weapons"></div>
+      <div id="armor"></div>
+      <div id="spells"></div>
+      <div id="items"></div>
+      <div id="transportation"></div>
+      <div id="property"></div>
+      </form>
+    <p>
+    Test
+    </p>
+    <script src="hero_functions.js"></script>
+  </body>
+</html>
