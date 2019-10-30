@@ -27,13 +27,44 @@
       <div id="description">
           <textarea id="chardescription" name="chardescription" cols="100" rows="10" onchange="update_hero(hero_data,'description',chardescription.value)">Heldenbeschreibung</textarea>
       </div>
-      <div id="attributes"></div>
+      <div id="attributes">
+			<label for="strength">Stärke:
+			<input id="strength" name="strength" type="number">
+			<div id="strength_modifier"></div>
+			</label>
+			<label for="dexterity">Geschicklichkeit:
+			<input id="dexterity" name="dexterity" type="number">
+			<div id="dexterity_modifier"></div>
+			</label>
+			<label for="constitution">Konstitution:
+			<input id="constitution" name="constitution" type="number">
+			<div id="constitution_modifier"></div>
+			</label>
+			<label for="intelligence">Intelligenz:
+			<input id="intelligence" name="intelligence" type="number">
+			<div id="intelligence_modifier"></div>
+			</label>
+			<label for="wisdom">Weisheit:
+			<input id="wisdom" name="wisdom" type="number">
+			<div id="wisdom_modifier"></div>
+			</label>
+			<label for="charisma">Charisma:
+			<input id="charisma" name="charisma" type="number">
+			<div id="charisma_modifier"></div>
+			</label>
+      </div>
+      </div>
+      </div>
+      </div>
+      </div>
       <div id="weapons"></div>
       <div id="armor"></div>
       <div id="spells"></div>
       <div id="items"></div>
       <div id="transportation"></div>
       <div id="property"></div>
+      <button type="button" id="save_hero">Held speichern</button>
+      <button type="button" id="delete_hero">Held löschen</button>
       </form>
     <p>
     Test
