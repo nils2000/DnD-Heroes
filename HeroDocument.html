@@ -8,7 +8,7 @@
     </script>
   </head>
   <body>
-      <form>
+      <form id="hero_stats">
       <div id="name">
           <label for="charname">Name:
           <input id="charname" name="charname" onchange="update_hero(hero_data,'name',charname.value)">
@@ -20,14 +20,8 @@
           </label>
       </div>
       <div id="classes">
-          <div id= "class_1">
-                <label for="class_1_name">Klasse:
-                <input id="class_1_name" name="class_1_name" onchange="update_hero_class_changed(hero_data,1,class_1_name.value,class_1_level.value)">
-                </label>
-                <label for="class_1_level">Stufe:
-                    <input id="class_1_level" name="class_1_level" onchange="update_hero_class_changed(hero_data,1,class_1_name.value,class_1_level.value)">
-                </label>
-          </div>
+          
+        <button type="button" id="add_class">Klasse hinzufügen</button>
       </div>
       <div id="image"></div>
       <div id="description">
