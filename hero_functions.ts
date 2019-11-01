@@ -11,7 +11,29 @@ function hero(name:string){
         return JSON.parse(localStorage[name]);
     }
 
-function get_hero_data_from_form(){}
+function get_hero_data_from_form(){
+	var hero_stats = Object();
+	var stat_names = ["charname","charrace","chardescription","strength","dexterity","constitution",
+					"intelligence","wisdom","charisma","hitpoints"];
+	for(var i = 0; i< stat_names.length;i++){
+		var input_field:any = document.getElementById(stat_names[i]);
+		hero_stats[stat_names[i]] = input_field.value;
+        }
+    hero_stats["classes"] = get_classes_from_form();
+	return hero_stats;
+	}
+
+function get_classes_from_form(){
+    var classes = Object();
+    var classes_div:any = document.getElementById("classes");
+    for (var i = 4; i <= classes_div.childNodes.length; i++){
+        var cinput:any = document.getElementById("class_" + i);
+        var sinput:any = document.getElementById("stufe_" + i);
+        classes[cinput.value] = sinput.value;
+        }
+    return classes;
+    }
+
 
 function store_hero_data_on_client(hero){
     //test if hero is allready registered (name is stored under localStorage.heroes)
@@ -76,9 +98,6 @@ function create_class_selector_and_level_field(){
     var classes = ["Barbar","Barde","Druide","Hexenmeister",
                     "Kämpfer","Kleriker","Magier","Mönch",
                     "Paladin","Schurke","Waldläufer","Zauberer","löschen"];
-            
-
-    
     
     var selectList = selection_menue(classes);
     var class_number = classes_div.childNodes.length;

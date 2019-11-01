@@ -1,0 +1,22 @@
+body {
+    display: flex;
+    flex-direction: column;
+  }
+
+#basics{
+    background-color: honeydew;
+}
+
+.attribute_and_save{
+
+    background-color: aqua;
+}
+
+.inspiration_and_practice{
+    background-color: green;
+    justify-content: flex-end;
+}
+
+#combat_stats{
+    background-color: grey;
+}

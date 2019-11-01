@@ -1,0 +1,19 @@
+#upper_right_box{
+    background-color: grey;
+    margin-left: 34%;
+}
+#left_box{
+    background-color: khaki;
+    width: 33%;
+    float: left;
+}
+#center_box{
+    margin-right: 33%;
+    margin-left: 33%;
+    background-color: lightblue;
+}
+#right_box{
+    width: 33%;
+    background-color: khaki;
+    float: right;
+}

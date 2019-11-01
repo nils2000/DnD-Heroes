@@ -5,8 +5,33 @@ function get_old_heroes() {
     else
         return [];
 }
-function hero_stats(name) {
+function hero(name) {
     return JSON.parse(localStorage[name]);
+}
+function get_hero_data_from_form() {
+    var hero_stats = Object();
+    var stat_names = ["charname", "charrace", "chardescription", "strength", "dexterity", "constitution",
+        "intelligence", "wisdom", "charisma", "hitpoints"];
+    for (var i = 0; i < stat_names.length; i++) {
+        var input_field = document.getElementById(stat_names[i]);
+        hero_stats[stat_names[i]] = input_field.value;
+    }
+    hero_stats["classes"] = get_classes_from_form();
+    return hero_stats;
+}
+function get_classes_from_form() {
+    var classes = Object();
+    var classes_div = document.getElementById("classes");
+    for (var i = 4; i <= classes_div.childNodes.length; i++) {
+        var cinput = document.getElementById("class_" + i);
+        var sinput = document.getElementById("stufe_" + i);
+        classes[cinput.value] = sinput.value;
+    }
+    return classes;
+}
+function store_hero_data_on_client(hero) {
+    //test if hero is allready registered (name is stored under localStorage.heroes)
+    localStorage[hero.name] = JSON.stringify(hero);
 }
 function hero_selection_menue() {
     var heroes = get_old_heroes();
