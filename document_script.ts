@@ -16,6 +16,26 @@ function named_input_fields(names: string[]) {
     return names.map(named_input);
 }
 
+function append_named_input_field(name: string, html_element_id: string) {
+    document.getElementById(html_element_id).appendChild(named_input(name));
+}
+
+function named_textarea(name: string, rows: number) {
+    let span = document.createElement("span");
+    let textarea = document.createElement("textarea");
+    span.title = name;
+    textarea.id = name;
+    textarea.innerText = name;
+    textarea.rows = rows;
+    span.appendChild(textarea);
+    return span;
+}
+
+
+function append_named_textarea(name: string, rows: number, html_element_id: string) {
+    document.getElementById(html_element_id).appendChild(named_textarea(name, rows));
+}
+
 function add_skills() {
     let skills = [
         "Athletik(Str)",
@@ -46,3 +66,17 @@ function add_skills() {
 }
 
 add_skills();
+append_named_textarea("weitere Übung und Sprachen", 12, "practice_and_languages");
+append_named_textarea("Persönlichkeitsmerkmale", 5, "personality");
+append_named_textarea("Ideale", 5, "ideals");
+append_named_textarea("Bindungen", 5, "ties");
+append_named_textarea("Makel", 5, "taint");
+append_named_textarea("Merkmale", 40, "characteristics");
+
+append_named_input_field("RK", "combat_stats");
+append_named_input_field("Initiative", "combat_stats");
+append_named_input_field("Bewegung", "combat_stats");
+document.getElementById("combat_stats").appendChild(document.createElement("br"));
+append_named_input_field("TP max", "combat_stats");
+append_named_input_field("TP", "combat_stats");
+append_named_input_field("TP temp", "combat_stats");
