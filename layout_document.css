@@ -29,3 +29,15 @@
 textarea{
     width: 100%;
 }
+
+.weapon_bonus{
+    width: 25%;
+}
+
+.weapon_name{
+    width: 40%;
+}
+
+.weapon_damage{
+    width: 35%;
+}

@@ -13,11 +13,14 @@
             <input id="name" name="name" value="Name">
         </span>
     </div>
-    <hr>
+
     <div id="upper_right_box">
         <form>
             <span title="Klasse und Stufe">
                 <input id="class_and_level" name="class_and_level" value="Klasse und Stufe">
+            </span>
+            <span title="Trefferwürfel">
+                <input id="hit_dice" name="hit_dice" value="Trefferwürfel">
             </span>
             <span title="Hintergrund">
                 <input id="background" name="background" value="Hintergrund">
@@ -37,7 +40,7 @@
             </span>
         </form>
     </div>
-
+    <hr>
     <div id="left_box">
         <div id="left_right_box">
             Rettungswürfe:<br>
@@ -115,6 +118,21 @@
     <div id="center_box">
         <form>
             <div id="combat_stats"></div>
+            <hr>
+            <div id="death_saves">
+                Rettungswürfe gegen Tod:<br>
+                Erfolge:<input type="checkbox"><input type="checkbox"><input type="checkbox"><br>
+                Fehlschläge:<input type="checkbox"><input type="checkbox"><input type="checkbox">
+            </div>
+            <hr>
+            <div id="weapons"></div>
+            <div id="new_weapons_button">
+                <input type="button" onclick="add_new_weapon()" value="Neue Waffe">
+            </div>
+            <hr>
+            <div id="money"></div>
+            <hr>
+            <div id="equipment"></div>
         </form>
     </div>
 
