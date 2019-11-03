@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="de">
+
+<head>
+    <meta charset="utf-8">
+    <title>Heldendokument</title>
+    <link rel="stylesheet" href="layout_document.css">
+</head>
+
+<body>
+    <div id="upper_left_box">
+        <span title="Name">
+            <input id="name" name="name" value="Name">
+        </span>
+    </div>
+    <div id="upper_right_box">
+        <form>
+            <span title="Klasse und Stufe">
+                <input id="class_and_level" name="class_and_level" value="Klasse und Stufe">
+            </span>
+            <span title="Hintergrund">
+                <input id="background" name="background" value="Hintergrund">
+            </span>
+            <span title="Name des Spielers">
+                <input id="players_name" name="players_name" value="Name des Spielers">
+            </span>
+            <br>
+            <span title="Volk">
+                <input id="race" name="race" value="Volk">
+            </span>
+            <span title="Gesinnung">
+                <input id="alignment" name="alignment" value="Gesinnung">
+            </span>
+            <span title="Erfahrungspunkte">
+                <input id="xp" name="xp" value="Erfahrungspunkte">
+            </span>
+        </form>
+    </div>
+
+    <div id="left_box">
+        <div id="left_right_box">
+            Rettungswürfe:<br>
+            <form>
+                <input type="checkbox" name="save_strength_enabled">
+                <label for="save_strength">Stärke
+                    <input name="save_strength" id="save_strength" size=2>
+                </label><br>
+                <input type="checkbox" name="save_dexterity_enabled">
+                <label for="save_dexterity">Geschick
+                    <input name="save_dexterity" id="save_dexterity" size=2>
+                </label><br>
+                <input type="checkbox" name="save_constitution_enabled">
+                <label for="save_constitution">Con
+                    <input name="save_constitution" id="save_constitution" size=2>
+                </label><br>
+                <label for="save_intelligence">Int
+                    <input name="save_intelligence" id="save_intelligence" size=2>
+                </label><br>
+                <label for="save_wisdom">Weisheit
+                    <input name="save_wisdom" id="save_wisdom" size=2>
+                </label><br>
+                <label for="save_charisma">Charisma
+                    <input name="save_charisma" id="save_charisma" size=2>
+                </label><br>
+            </form>
+        </div>
+        <form>
+            Attribute:<br>
+            <label for="strength">Stärke
+                <input name="strength" id="strength" size=2>
+            </label><br>
+            <label for="dexterity">Geschick
+                <input name="dexterity" id="dexterity" size=2>
+            </label><br>
+            <label for="constitution">Con
+                <input name="constitution" id="constitution" size=2>
+            </label><br>
+            <label for="intelligence">Int
+                <input name="intelligence" id="intelligence" size=2>
+            </label><br>
+            <label for="wisdom">Weisheit
+                <input name="wisdom" id="wisdom" size=2>
+            </label><br>
+            <label for="charisma">Charisma
+                <input name="charisma" id="charisma" size=2>
+            </label>
+            <hr>
+            <label for="inspiration">Inspiration
+                <input name="inspiration" id="inspiration" size=2>
+            </label><br>
+            <label for="proficency">Übungsbonus
+                <input name="proficency" id="proficency" size=2>
+            </label><br>
+            <hr>
+            <div id="skills">
+            </div>
+            <hr>
+            <div id="passive_wisdom"></div>
+            <hr>
+
+        </form>
+
+    </div>
+
+    <div id="right_box">
+        <form>
+        </form>
+    </div>
+    <div id="center_box">
+        <form>
+        </form>
+    </div>
+
+    <script src="document_script.js"></script>
+</body>
+
+</html>

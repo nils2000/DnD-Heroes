@@ -1,16 +1,24 @@
 #upper_right_box{
-    background-color: grey;
+    background-color: lightgrey;
     margin-left: 34%;
+}
+#upper_left_box{
+    background-color: khaki;
+    float:left;
 }
 #left_box{
     background-color: khaki;
     width: 33%;
     float: left;
 }
+#left_right_box{
+    background-color: orange;
+    float: right;
+}
 #center_box{
     margin-right: 33%;
     margin-left: 33%;
-    background-color: lightblue;
+    background-color: lightgrey;
 }
 #right_box{
     width: 33%;
