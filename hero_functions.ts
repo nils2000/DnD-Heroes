@@ -13,13 +13,15 @@ function hero(name:string){
 
 function get_hero_data_from_form(){
 	var hero_stats = Object();
-	var stat_names = ["charname","charrace","chardescription","strength","dexterity","constitution",
-					"intelligence","wisdom","charisma","hitpoints"];
-	for(var i = 0; i< stat_names.length;i++){
-		var input_field:any = document.getElementById(stat_names[i]);
-		hero_stats[stat_names[i]] = input_field.value;
-        }
-    hero_stats["classes"] = get_classes_from_form();
+	//var stat_names = ["charname","charrace","chardescription","strength","dexterity","constitution",
+					//"intelligence","wisdom","charisma","hitpoints"];
+	//for(var i = 0; i< stat_names.length;i++){
+		//var input_field:any = document.getElementById(stat_names[i]);
+		//hero_stats[stat_names[i]] = input_field.value;
+        //}
+    //hero_stats["classes"] = get_classes_from_form();
+    var ids = document.querySelectorAll('[id]');
+    Array.prototype.forEach.call(ids,function(element,i){console.log(element.id,i)});
 	return hero_stats;
 	}
 

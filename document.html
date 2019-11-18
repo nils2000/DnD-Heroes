@@ -137,6 +137,13 @@
     </div>
 
     <script src="document_script.js"></script>
+    <form>
+        <!--<button onclick='document.open("text/html");document.write(JSON.stringify(get_hero_data_from_form()));document.close();'>JSON</button>-->
+        <button onclick="prepare_download()">Export</button>
+    </form>
+    <div id="export"></div>
+    <!--<a id="download_link" download="test.json" href="">Dokument exportieren</a>-->
+
 </body>
 
 </html>
