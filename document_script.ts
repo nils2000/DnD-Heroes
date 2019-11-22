@@ -153,6 +153,11 @@ function get_hero_data_from_form() {
     return hero_stats;
 }
 
+function display_hero_data() {
+    var display = document.getElementById("json_export_field");
+    display.innerHTML = JSON.stringify(get_hero_data_from_form());
+}
+
 // function prepare_download() {
 //     //blog shinglyu.com 2019/02/09
 //     var link = document.getElementById("export");

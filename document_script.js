@@ -130,39 +130,7 @@ function get_hero_data_from_form() {
     });
     return hero_stats;
 }
-function prepare_download() {
-    //blog shinglyu.com 2019/02/09
-    var link = document.getElementById("export");
-    link.setAttribute('href', 'data:application/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(get_hero_data_from_form())));
-    link.setAttribute('download', "test.json");
-    link.innerText = "download";
-    //link.style.display = 'none';
-    //var export_div = document.getElementById("export");
-    //export_div.appendChild(link);
-    link.click();
-    //export_div.removeChild(link);
-    //download
-    //var text = JSON.stringify(get_hero_data_from_form());
-    //    var data = new Blob([text],{type: 'application/json'});
-    //    var url = window.URL.createObjectURL(data);
-    //    var anchor:any = document.getElementById('download_link');
-    //    anchor.href = url;
-}
-function loadJSON(callback) {
-    var xobj = new XMLHttpRequest();
-    xobj.overrideMimeType("application/json");
-    xobj.open('GET', 'test.json', true); // Replace 'appDataServices' with the path to your file
-    xobj.onreadystatechange = function () {
-        if (xobj.readyState == 4 && xobj.status == "200") {
-            // Required use of an anonymous callback as .open will NOT return a value but simply returns undefined in asynchronous mode
-            callback(xobj.responseText);
-        }
-    };
-    xobj.send(null);
-}
-function init() {
-    loadJSON(function (response) {
-        // Parsing JSON string into object
-        var actual_JSON = JSON.parse(response);
-    });
+function display_hero_data() {
+    var display = document.getElementById("json_export_field");
+    display.innerHTML = JSON.stringify(get_hero_data_from_form());
 }
