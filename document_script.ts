@@ -176,3 +176,54 @@ function display_hero_data() {
 //     //    var anchor:any = document.getElementById('download_link');
 //     //    anchor.href = url;
 // }
+
+//(function() {
+
+  //// 'global' variable to store reference to the database
+  //var db;
+
+  //databaseOpen(function() {
+    //alert("The database has been opened");
+  //});
+
+  //function databaseOpen(callback) {
+    //// Open a database, specify the name and version
+    //var version = 1;
+    //var request = indexedDB.open('heroes', version);
+
+    //// Run migrations if necessary
+    //request.onupgradeneeded = function(e:any) {
+      //db = e.target.result;
+      //e.target.transaction.onerror = databaseError;
+      //db.createObjectStore('heroes', { keyPath: 'timeStamp' });
+    //};
+
+    //request.onsuccess = function(e:any) {
+      //db = e.target.result;
+      //callback();
+    //};
+    //request.onerror = databaseError;
+  //}
+
+  //function databaseError(e) {
+    //console.error('An IndexedDB error has occurred', e);
+  //}
+
+//}());
+
+function store_hero(hero:any){
+    localStorage.setItem(hero.name, JSON.stringify(hero));
+    var heroes = localStorage.getItem("heroes");
+    if(! heroes) {localStorage.setItem("heroes", JSON.stringify([hero.name]));}
+    else{
+        var hero_list = JSON.parse(heroes);
+        if (! hero_list.includes(hero.name)){
+            hero_list.push(hero.name);
+            localStorage.setItem("heroes", JSON.stringify(hero_list));
+            }
+        }
+    }
+    
+function get_hero_from_storage(hero_name:string){
+    return JSON.parse(localStorage.getItem(hero_name));
+    }
