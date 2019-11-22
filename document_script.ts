@@ -38,6 +38,22 @@ function named_textarea(name: string, rows: number) {
     return span;
 }
 
+function selection_list(items:string[],first_option:string){
+    var selection = document.createElement("select");
+    if(first_option){
+        append_option(selection,first_option)
+        }
+    for(var i = 0;i<items.length;i++){
+        append_option(selection,items[i])
+        }
+    return selection;
+    }
+
+function append_option(selection:any,item:string){
+        var option = document.createElement("option");
+        option.text = item;
+        selection.appendChild(option);
+    }
 
 function append_named_textarea(name: string, rows: number, html_element_id: string) {
     document.getElementById(html_element_id).appendChild(named_textarea(name, rows));
@@ -226,4 +242,8 @@ function store_hero(hero:any){
     
 function get_hero_from_storage(hero_name:string){
     return JSON.parse(localStorage.getItem(hero_name));
+    }
+
+function get_list_of_stored_heroes(){
+    return JSON.parse(localStorage.getItem("heroes"));
     }
