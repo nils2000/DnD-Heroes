@@ -1,11 +1,6 @@
 'use strict';
-<<<<<<< HEAD
-function input_field(name, size) {
-=======
 //Form Construction
-function named_input(name) {
-    var label = document.createElement("label");
->>>>>>> a0faa0f472e691ee13e3a5497246d6ff46d29527
+function named_input(name, size) {
     var input = document.createElement("input");
     input.id = name;
     input.size = size;
@@ -14,7 +9,7 @@ function named_input(name) {
 }
 function labeled_input(name) {
     var label = document.createElement("label");
-    var input = input_field(name, 2);
+    var input = named_input(name, 2);
     label.htmlFor = name;
     label.innerText = name;
     label.appendChild(input);
@@ -40,7 +35,7 @@ function append_named_textarea(name, rows, html_element_id) {
     document.getElementById(html_element_id).appendChild(named_textarea(name, rows));
 }
 function named_input_field(name, size) {
-    var input = input_field(name, size);
+    var input = named_input(name, size);
     input.value = name;
     var span = document.createElement("span");
     span.title = name;
@@ -105,7 +100,6 @@ append_labeled_input_field("RK", "combat_stats");
 append_labeled_input_field("Initiative", "combat_stats");
 append_labeled_input_field("Bewegung", "combat_stats");
 document.getElementById("combat_stats").appendChild(document.createElement("br"));
-<<<<<<< HEAD
 append_labeled_input_field("TP max", "combat_stats");
 append_labeled_input_field("TP", "combat_stats");
 append_labeled_input_field("TP temp", "combat_stats");
@@ -116,10 +110,6 @@ document.getElementById("money").appendChild(document.createElement("br"));
 append_labeled_input_field("GM", "money");
 append_labeled_input_field("PM", "money");
 append_named_textarea("Ausrüstung", 30, "equipment");
-=======
-append_named_input_field("TP max", "combat_stats");
-append_named_input_field("TP", "combat_stats");
-append_named_input_field("TP temp", "combat_stats");
 //Data retrieval
 function get_hero_data_from_form() {
     var hero_stats = Object();
@@ -142,14 +132,15 @@ function get_hero_data_from_form() {
 }
 function prepare_download() {
     //blog shinglyu.com 2019/02/09
-    var link = document.createElement('a');
+    var link = document.getElementById("export");
     link.setAttribute('href', 'data:application/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(get_hero_data_from_form())));
     link.setAttribute('download', "test.json");
-    link.style.display = 'none';
-    var export_div = document.getElementById("export");
-    export_div.appendChild(link);
+    link.innerText = "download";
+    //link.style.display = 'none';
+    //var export_div = document.getElementById("export");
+    //export_div.appendChild(link);
     link.click();
-    export_div.removeChild(link);
+    //export_div.removeChild(link);
     //download
     //var text = JSON.stringify(get_hero_data_from_form());
     //    var data = new Blob([text],{type: 'application/json'});
@@ -157,4 +148,21 @@ function prepare_download() {
     //    var anchor:any = document.getElementById('download_link');
     //    anchor.href = url;
 }
->>>>>>> a0faa0f472e691ee13e3a5497246d6ff46d29527
+function loadJSON(callback) {
+    var xobj = new XMLHttpRequest();
+    xobj.overrideMimeType("application/json");
+    xobj.open('GET', 'test.json', true); // Replace 'appDataServices' with the path to your file
+    xobj.onreadystatechange = function () {
+        if (xobj.readyState == 4 && xobj.status == "200") {
+            // Required use of an anonymous callback as .open will NOT return a value but simply returns undefined in asynchronous mode
+            callback(xobj.responseText);
+        }
+    };
+    xobj.send(null);
+}
+function init() {
+    loadJSON(function (response) {
+        // Parsing JSON string into object
+        var actual_JSON = JSON.parse(response);
+    });
+}
