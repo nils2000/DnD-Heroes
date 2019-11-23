@@ -38,14 +38,16 @@ function named_textarea(name: string, rows: number) {
     return span;
 }
 
-function selection_list(items:string[],first_option:string){
+function selection_list(items:string[],first_option:string,id:string){
     var selection = document.createElement("select");
+    if (id) selection.id = id;
     if(first_option){
         append_option(selection,first_option)
         }
+        if(items){
     for(var i = 0;i<items.length;i++){
         append_option(selection,items[i])
-        }
+        }}
     return selection;
     }
 
@@ -147,6 +149,16 @@ append_labeled_input_field("PM", "money");
 
 append_named_textarea("Ausrüstung", 30, "equipment");
 
+append_hero_selector();
+
+document.getElementById("upper_left_box")
+    .appendChild(document.createElement("br"));
+var save_button = document.createElement("button");
+save_button.innerHTML = "speichern";
+save_button.onclick = store_current_hero_and_refresh;
+document.getElementById("upper_left_box").appendChild(save_button);
+
+
 //Data retrieval
 
 function get_hero_data_from_form() {
@@ -168,6 +180,25 @@ function get_hero_data_from_form() {
     });
     return hero_stats;
 }
+
+function react_to_hero_selector_changes(){
+    var selector:any = document.getElementById("select_char");
+    get_and_load_into_form(selector.value);
+    }
+
+function get_and_load_into_form(hero_name:string){
+    var hero = get_hero_from_storage(hero_name);
+    load_hero_data_into_form(hero);
+    }
+
+function load_hero_data_into_form(hero:any){
+    for (var k in hero) {display_value(k,hero[k]);}
+    }
+
+function display_value(key:string,value:string){
+    var input: any = document.getElementById(key);
+    input.value = value;
+    }
 
 function display_hero_data() {
     var display = document.getElementById("json_export_field");
@@ -234,10 +265,14 @@ function store_hero(hero:any){
     else{
         var hero_list = JSON.parse(heroes);
         if (! hero_list.includes(hero.name)){
-            hero_list.push(hero.name);
-            localStorage.setItem("heroes", JSON.stringify(hero_list));
-            }
+            hero_list.push(hero.name);}
+        localStorage.setItem("heroes", JSON.stringify(hero_list));
         }
+    }
+    
+function store_current_hero_and_refresh(){
+    store_hero(get_hero_data_from_form());
+    refresh_hero_selector();
     }
     
 function get_hero_from_storage(hero_name:string){
@@ -246,4 +281,17 @@ function get_hero_from_storage(hero_name:string){
 
 function get_list_of_stored_heroes(){
     return JSON.parse(localStorage.getItem("heroes"));
+    }
+
+function append_hero_selector(){
+    var selector:any = selection_list(get_list_of_stored_heroes(),"Charakter auswählen","select_char");
+    selector.onchange = react_to_hero_selector_changes;
+    document.getElementById("upper_left_box").appendChild(selector);
+    }
+    
+function refresh_hero_selector(){
+    var box = document.getElementById("upper_left_box");
+    var selector = document.getElementById("select_char");
+    box.removeChild(selector);
+    append_hero_selector();
     }
