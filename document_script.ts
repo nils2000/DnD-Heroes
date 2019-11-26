@@ -19,12 +19,31 @@ function labeled_input(name: string) {
     return label;
 }
 
+function checkbox_for_labeld_input(name: string){
+    var checkbox = document.createElement("input");
+    checkbox.type = "checkbox";
+    checkbox.id = name;
+    return checkbox;
+}
+
 function labeled_input_fields(names: string[]) {
     return names.map(labeled_input);
 }
 
+function checkboxes_for_labeld_input_fields(names: string[]){
+    return names.map(checkbox_for_labeld_input);
+}
+
 function append_labeled_input_field(name: string, html_element_id: string) {
     document.getElementById(html_element_id).appendChild(labeled_input(name));
+}
+
+
+function append_button(name:string,click_function:any,target_div_name:string){
+    var new_button = document.createElement("button");
+    new_button.innerHTML = name;
+    new_button.onclick = click_function;
+    document.getElementById(target_div_name).appendChild(new_button);
 }
 
 function named_textarea(name: string, rows: number) {
@@ -112,8 +131,11 @@ function add_skills() {
         "Überzeugen(Cha)"
     ];
     let inputs = labeled_input_fields(skills);
+    var checkbox_names = inputs.map(n => n+"_checked");
+    var checkboxes = checkboxes_for_labeld_input_fields(checkbox_names);
     let skill_div = document.getElementById("skills");
     for (let i = 0; i < inputs.length; i++) {
+        skill_div.appendChild(checkboxes[i]);
         skill_div.appendChild(inputs[i]);
         skill_div.appendChild(document.createElement("br"));
     }
@@ -153,11 +175,8 @@ append_hero_selector();
 
 document.getElementById("upper_left_box")
     .appendChild(document.createElement("br"));
-var save_button = document.createElement("button");
-save_button.innerHTML = "speichern";
-save_button.onclick = store_current_hero_and_refresh;
-document.getElementById("upper_left_box").appendChild(save_button);
 
+append_button("speichern",store_current_hero_and_refresh,"upper_left_box");
 
 //Data retrieval
 
