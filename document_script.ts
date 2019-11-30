@@ -19,7 +19,7 @@ function labeled_input(name: string) {
     return label;
 }
 
-function checkbox_for_labeld_input(name: string){
+function checkbox(name: string){
     var checkbox = document.createElement("input");
     checkbox.type = "checkbox";
     checkbox.id = name;
@@ -33,7 +33,7 @@ function labeled_input_fields(names: string[]) {
 }
 
 function checkboxes_for_labeld_input_fields(names: string[]){
-    return names.map(checkbox_for_labeld_input);
+    return names.map(checkbox);
 }
 
 function append_labeled_input_field(name: string, html_element_id: string) {
@@ -106,6 +106,38 @@ function weapon_stats_inputfields() {
     weapon_div.appendChild(weapon_bonus_field);
     weapon_div.appendChild(weapon_damage_field);
     return weapon_div;
+}
+
+function table_row(list:any[]){
+    var row = document.createElement("tr");
+    for (var k in list){
+        var data = document.createElement("td");
+        data.appendChild(list[k]);
+        row.appendChild(data);
+    }
+    return row;
+}
+
+function attribute_table_row(attr:string){
+    var bez = document.createTextNode(attr);
+    var inp = named_input(attr,2);
+    var mod = div(attr + "_modifikator");
+    var bonus = div(attr + "_bonus");
+    var trained = checkbox(attr + "_RW_trainiert");
+    var rw = div(attr + "_RW");
+    var rw_mod = div(attr + "_RW_mod");
+    return table_row([bez,inp,mod,bonus,trained,rw,rw_mod]);
+    }
+
+function append_table_row(row:any,table_id:string){
+    var table = document.getElementById(table_id);
+    table.appendChild(row);
+}
+
+function div(id:string){
+    var div_element = document.createElement("div");
+    div_element.id = id;
+    return div_element;
 }
 
 function add_new_weapon() {
@@ -184,6 +216,22 @@ document.getElementById("upper_left_box")
 append_button("speichern",store_current_hero_and_refresh,"upper_left_box");
 append_button("Felder zurück setzen",clear_all_fields,"upper_left_box");
 append_button("Held löschen",delete_hero_from_storage_and_refresh,"upper_left_box");
+
+//AttributeTable
+
+// <tr>
+//                 <th>Attribute</th>
+//                 <th><!--Werte--></th>
+//                 <th>Mod.</th>
+//                 <th>Bonus</th>
+//                 <th><!--RW_trained--></th>
+//                 <th>RW</th>
+//                 <th>Mod.</th>
+//             </tr>
+
+var attribute = ["Stärke","Geschick","Con","Int","Weisheit","Charisma"]; 
+for (var a in attribute)
+append_table_row(attribute_table_row(attribute[a]),"Attribute");
 
 //Data retrieval
 
