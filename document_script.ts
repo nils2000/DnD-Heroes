@@ -181,6 +181,7 @@ document.getElementById("upper_left_box")
 
 append_button("speichern",store_current_hero_and_refresh,"upper_left_box");
 append_button("Felder zurück setzen",clear_all_fields,"upper_left_box");
+append_button("Held löschen",delete_hero_from_storage_and_refresh,"upper_left_box");
 
 //Data retrieval
 
@@ -315,6 +316,15 @@ function store_hero(hero:any){
         localStorage.setItem("heroes", JSON.stringify(hero_list));
         }
     }
+
+function delete_hero_from_storage_and_refresh(hero:any){
+    var heroes = localStorage.getItem("heroes");
+    var hero_list = JSON.parse(heroes);
+    localStorage.setItem("heroes",JSON.stringify(hero_list.splice(hero_list.indexOf(hero.name),1)));
+    localStorage.removeItem(hero.Name);
+    refresh_hero_selector();
+    clear_all_fields();
+}
     
 function store_current_hero_and_refresh(){
     store_hero(get_hero_data_from_form());
