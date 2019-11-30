@@ -87,7 +87,7 @@ function weapon_stats_inputfields() {
     weapon_name_field.className = "weapon_name";
     var weapon_bonus_field = named_input_field("Bonus", 5);
     weapon_bonus_field.className = "weapon_bonus";
-    var weapon_damage_field = named_input_field("Schaden/Art", 15);
+    var weapon_damage_field = named_input_field("SchadenUndArt", 15);
     weapon_damage_field.className = "weapon_damage";
     weapon_div.appendChild(weapon_name_field);
     weapon_div.appendChild(weapon_bonus_field);
@@ -95,7 +95,9 @@ function weapon_stats_inputfields() {
     return weapon_div;
 }
 function add_new_weapon() {
-    document.getElementById("weapons").appendChild(weapon_stats_inputfields());
+    var weapon_form = weapon_stats_inputfields();
+    document.getElementById("weapons").appendChild(weapon_form);
+    return weapon_form;
 }
 function add_skills() {
     var skills = [
@@ -171,7 +173,7 @@ function get_hero_data_from_form() {
     Array.prototype.forEach.call(ids, function (element, i) {
         //console.log(element.tagName,i);
         if (element.tagName == "INPUT" || element.tagName == "TEXTAREA") {
-            if (element.id == "Waffe" || element.id == "Schaden/Art" || element.id == "Bonus") 
+            if (element.id == "Waffe" || element.id == "SchadenUndArt" || element.id == "Bonus") 
             //TODO: Waffen als seperate Objekte speichern 
             {
                 var weapon_id = element.parentNode.parentNode.id;
@@ -203,15 +205,36 @@ function get_and_load_into_form(hero_name) {
 function load_hero_data_into_form(hero) {
     //TODO: treat weapons differently
     //TODO: restore checkboxes
+    console.log(hero);
     for (var k in hero) {
-        if (k != "Waffen" && k != "weapons")
-            display_value(k, hero[k]);
+        if (hero[k] == "on") {
+            set_checkbox(k);
+        }
+        else {
+            if (k != "Waffen" && k != "weapons")
+                display_value(k, hero[k]);
+            if (k === "Waffen") {
+                var w = hero["Waffen"];
+                console.log(w);
+                for (var waffe in w) {
+                    console.log(w[waffe]);
+                    var w_form = add_new_weapon();
+                    w_form.querySelector("#Waffe").value = w[waffe]["Waffe"];
+                    w_form.querySelector("#Bonus").value = w[waffe]["Bonus"];
+                    w_form.querySelector("#SchadenUndArt").value = w[waffe]["SchadenUndArt"];
+                }
+            }
+        }
     }
 }
 function display_value(key, value) {
     var input = document.getElementById(key);
-    console.log(key, value);
+    //console.log(key,value);
     input.value = value;
+}
+function set_checkbox(key) {
+    var checkbox = document.getElementById(key);
+    checkbox.checked = true;
 }
 function display_hero_data() {
     var display = document.getElementById("json_export_field");
@@ -309,7 +332,7 @@ function clear_all_fields() {
     var ids = document.querySelectorAll('[id]');
     Array.prototype.forEach.call(ids, function (element, i) {
         if (element.tagName == "INPUT") {
-            if (element.id == "Waffe" || element.id == "Schaden/Art" || element.id == "Bonus") 
+            if (element.id == "Waffe" || element.id == "SchadenUndArt" || element.id == "Bonus") 
             //Waffenfelder löschen
             {
                 if (element.id == "Waffe") {
@@ -319,8 +342,12 @@ function clear_all_fields() {
                 }
             }
             else if (element.value != "" && element.value != element.id)
-                if (element.type != "checkbox")
-                    element.value = element.id;
+                if (element.type != "checkbox") {
+                    if (element.size != 2)
+                        element.value = element.id;
+                    else
+                        element.value = "";
+                }
                 else
                     element.checked = false;
         }
