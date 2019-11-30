@@ -23,6 +23,8 @@ function checkbox_for_labeld_input(name: string){
     var checkbox = document.createElement("input");
     checkbox.type = "checkbox";
     checkbox.id = name;
+    checkbox.value = name;
+    checkbox.checked = false;
     return checkbox;
 }
 
@@ -43,6 +45,7 @@ function append_button(name:string,click_function:any,target_div_name:string){
     var new_button = document.createElement("button");
     new_button.innerHTML = name;
     new_button.onclick = click_function;
+    new_button.id = name;
     document.getElementById(target_div_name).appendChild(new_button);
 }
 
@@ -177,6 +180,7 @@ document.getElementById("upper_left_box")
     .appendChild(document.createElement("br"));
 
 append_button("speichern",store_current_hero_and_refresh,"upper_left_box");
+append_button("Felder zurück setzen",clear_all_fields,"upper_left_box");
 
 //Data retrieval
 
@@ -194,7 +198,21 @@ function get_hero_data_from_form() {
     Array.prototype.forEach.call(ids, function (element, i) {
         //console.log(element.tagName,i);
         if (element.tagName == "INPUT" || element.tagName == "TEXTAREA") {
-            hero_stats[element.id] = element.value;
+            if (element.id == "Waffe" || element.id == "Schaden/Art" || element.id == "Bonus")
+                //TODO: Waffen als seperate Objekte speichern 
+                {   
+                    var weapon_id = element.parentNode.parentNode.id;
+                    if(!hero_stats["Waffen"]) hero_stats["Waffen"] = Object();
+                    if(!hero_stats["Waffen"][weapon_id]) hero_stats["Waffen"][weapon_id] = Object();
+                    hero_stats["Waffen"][weapon_id][element.id] = element.value;
+                    console.log(hero_stats["Waffen"][weapon_id]);
+                }
+            else
+
+            if (element.value != "" && element.value != element.id)
+                if (element.type != "checkbox" || element.checked)
+                    hero_stats[element.id] = element.value;
+        
         }
     });
     return hero_stats;
@@ -207,15 +225,24 @@ function react_to_hero_selector_changes(){
 
 function get_and_load_into_form(hero_name:string){
     var hero = get_hero_from_storage(hero_name);
+    //TODO: blank fields
+    //location.reload(true); not working
+    clear_all_fields();
     load_hero_data_into_form(hero);
     }
 
 function load_hero_data_into_form(hero:any){
-    for (var k in hero) {display_value(k,hero[k]);}
+    //TODO: treat weapons differently
+    //TODO: restore checkboxes
+    for (var k in hero) {
+        if(k != "Waffen" && k != "weapons")
+        display_value(k,hero[k]);
+        }
     }
 
 function display_value(key:string,value:string){
     var input: any = document.getElementById(key);
+    console.log(key,value);
     input.value = value;
     }
 
@@ -278,13 +305,13 @@ function display_hero_data() {
 //}());
 
 function store_hero(hero:any){
-    localStorage.setItem(hero.name, JSON.stringify(hero));
+    localStorage.setItem(hero.Name, JSON.stringify(hero));
     var heroes = localStorage.getItem("heroes");
-    if(! heroes) {localStorage.setItem("heroes", JSON.stringify([hero.name]));}
+    if(! heroes) {localStorage.setItem("heroes", JSON.stringify([hero.Name]));}
     else{
         var hero_list = JSON.parse(heroes);
-        if (! hero_list.includes(hero.name)){
-            hero_list.push(hero.name);}
+        if (! hero_list.includes(hero.Name)){
+            hero_list.push(hero.Name);}
         localStorage.setItem("heroes", JSON.stringify(hero_list));
         }
     }
@@ -305,7 +332,8 @@ function get_list_of_stored_heroes(){
 function append_hero_selector(){
     var selector:any = selection_list(get_list_of_stored_heroes(),"Charakter auswählen","select_char");
     selector.onchange = react_to_hero_selector_changes;
-    document.getElementById("upper_left_box").appendChild(selector);
+    var save_button:any = document.getElementById("speichern");
+    document.getElementById("upper_left_box").insertBefore(selector,save_button);
     }
     
 function refresh_hero_selector(){
@@ -314,3 +342,27 @@ function refresh_hero_selector(){
     box.removeChild(selector);
     append_hero_selector();
     }
+
+function clear_all_fields(){
+    var ids = document.querySelectorAll('[id]');
+    Array.prototype.forEach.call(ids, function (element, i) {
+        if (element.tagName == "INPUT" ) {
+            if (element.id == "Waffe" || element.id == "Schaden/Art" || element.id == "Bonus")
+                //Waffenfelder löschen
+                {   
+                    if (element.id == "Waffe"){
+                        var weapon_div_node = element.parentNode.parentNode;
+                        var weapon_div_parent_node = weapon_div_node.parentNode;
+                        weapon_div_parent_node.removeChild(weapon_div_node);
+                    }
+                }
+            else
+            if (element.value != "" && element.value != element.id)
+                if (element.type != "checkbox" )
+                    element.value = element.id;
+                else element.checked = false;
+                
+        }  
+        if(element.tagName == "TEXTAREA") element.value = element.id;
+});
+}
