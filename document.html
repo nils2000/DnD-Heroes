@@ -8,115 +8,167 @@
 </head>
 
 <body>
-    <div id="upper_left_box">
-        <span title="Name">
-            <input id="Name" name="Name" value="Name">
-        </span>
-    </div>
+    <div style="display: table;">
+        <div style="display: table-row;">
+            <div id="upper_left_box" style="display: table-cell;">
+                <table>
+                    <tr id="name_data_row">
+                        <td>
+                            <span title="Name">
+                                <input id="Name" name="Name" value="Name">
+                            </span>
+                        </td>
+                    </tr>
+                    <tr id="save_blank_and_delete_row">
+                    </tr>
+                </table>
+            </div>
+            <div id="upper_right_box" style="display: table-cell;">
+                <table>
+                    <form>
+                        <tr>
+                            <td>
+                                <span title="Klasse und Stufe">
+                                    <input id="Klasse und Stufe" name="Klasse und Stufe" value="Klasse und Stufe">
+                                </span>
+                            </td>
+                            <td>
+                                <span title="Trefferwürfel">
+                                    <input id="Trefferwürfel" name="Trefferwürfel" value="Trefferwürfel">
+                                </span>
+                            </td>
+                            <td>
+                                <span title="Hintergrund">
+                                    <input id="Hintergrund" name="Hintergrund" value="Hintergrund">
+                                </span>
+                            </td>
+                            <td>
+                                <span title="Name des Spielers">
+                                    <input id="Name des Spielers" name="Name des Spielers" value="Name des Spielers">
+                                </span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span title="Volk">
+                                    <input id="Volk" name="Volk" value="Volk">
+                                </span>
+                            </td>
+                            <td>
+                                <span title="Gesinnung">
+                                    <input id="Gesinnung" name="Gesinnung" value="Gesinnung">
+                                </span>
+                            </td>
+                            <td>
+                                <span title="Erfahrungspunkte">
+                                    <input id="Erfahrungspunkte" name="Erfahrungspunkte" value="Erfahrungspunkte">
+                                </span>
+                            </td>
+                            <td></td>
+                        </tr>
+                    </form>
+                </table>
+            </div>
 
-    <div id="upper_right_box">
-        <form>
-            <span title="Klasse und Stufe">
-                <input id="Klasse und Stufe" name="Klasse und Stufe" value="Klasse und Stufe">
-            </span>
-            <span title="Trefferwürfel">
-                <input id="Trefferwürfel" name="Trefferwürfel" value="Trefferwürfel">
-            </span>
-            <span title="Hintergrund">
-                <input id="Hintergrund" name="Hintergrund" value="Hintergrund">
-            </span>
-            <span title="Name des Spielers">
-                <input id="Name des Spielers" name="Name des Spielers" value="Name des Spielers">
-            </span>
-            <br>
-            <span title="Volk">
-                <input id="Volk" name="Volk" value="Volk">
-            </span>
-            <span title="Gesinnung">
-                <input id="Gesinnung" name="Gesinnung" value="Gesinnung">
-            </span>
-            <span title="Erfahrungspunkte">
-                <input id="Erfahrungspunkte" name="Erfahrungspunkte" value="Erfahrungspunkte">
-            </span>
-        </form>
+        </div>
     </div>
     <hr>
-    <div id="left_box">
-            <form>
-        <table id="Attribute">
-            <tr>
-                <th>Attribut</th>
-                <th><!--Werte--></th>
-                <th>Mod.</th>
-                <th>Bonus</th>
-                <th><!--RW_trained--></th>
-                <th>RW</th>
-                <th>Mod.</th>
-            </tr>
-        </table>
+    <div style="display: table; width: 100%;">
+        <div style="display: table-row;">
+            <div style="display: table-cell;">
+                <div id="left_box">
+                    <form>
+                        <table id="Attribute">
+                            <tr>
+                                <th>Attribut</th>
+                                <th>
+                                    <!--Werte-->
+                                </th>
+                                <th>Mod.</th>
+                                <th>Bonus</th>
+                                <th>
+                                    <!--RW_trained-->
+                                </th>
+                                <th>RW</th>
+                                <th>Mod.</th>
+                            </tr>
+                        </table>
 
-        
-            <hr>
-            <label for="inspiration">Inspiration
-                <input name="inspiration" id="inspiration" size=2>
-            </label><br>
-            <label for="proficency">Übungsbonus
-                <input name="proficency" id="proficency" size=2>
-            </label><br>
-            <hr>
-            <div id="skills">
+
+                        <hr>
+                        <div>
+                            <label for="inspiration">Inspiration
+                                <input name="inspiration" id="inspiration" size=2>
+                            </label><br>
+                            <label for="proficency">Übungsbonus
+                                <input name="proficency" id="proficency" size=2>
+                            </label><br>
+                            <hr>
+                        </div>
+                        <div id="skills">
+                        </div>
+                        <hr>
+                        <div id="passive_wisdom"></div>
+                        <hr>
+                        <div id="practice_and_languages"></div>
+                    </form>
+
+                </div>
+
             </div>
-            <hr>
-            <div id="passive_wisdom"></div>
-            <hr>
-            <div id="practice_and_languages"></div>
-        </form>
-
-    </div>
-
-    <div id="right_box">
-        <form>
-            <div id="personality"></div>
-            <div id="ideals"></div>
-            <div id="ties"></div>
-            <div id="taint"></div>
-            <div id="characteristics"></div>
-        </form>
-    </div>
-    <div id="center_box">
-        <form>
-            <div id="combat_stats"></div>
-            <hr>
-            <div id="death_saves">
-                Rettungswürfe gegen Tod:<br>
-                Erfolge:<input type="checkbox" id="todes_rw1_e"><input type="checkbox"id="todes_rw2_e"><input type="checkbox"id="todes_rw3_e"><br>
-                Fehlschläge:<input type="checkbox"id="todes_rw1_m"><input type="checkbox"id="todes_rw2_m"><input type="checkbox"id="todes_rw3_m">
+            <div style="display: table-cell;">
+                <div id="center_box">
+                    <form>
+                        <div id="combat_stats"></div>
+                        <hr>
+                        <div id="death_saves">
+                            Rettungswürfe gegen Tod:<br>
+                            Erfolge:<input type="checkbox" id="todes_rw1_e"><input type="checkbox"
+                                id="todes_rw2_e"><input type="checkbox" id="todes_rw3_e"><br>
+                            Fehlschläge:<input type="checkbox" id="todes_rw1_m"><input type="checkbox"
+                                id="todes_rw2_m"><input type="checkbox" id="todes_rw3_m">
+                        </div>
+                        <hr>
+                        <div id="weapons"></div>
+                        <div id="new_weapons_button">
+                            <input type="button" onclick="add_new_weapon()" value="Neue Waffe">
+                        </div>
+                        <hr>
+                        <div id="money"></div>
+                        <hr>
+                        <div id="equipment"></div>
+                    </form>
+                </div>
             </div>
-            <hr>
-            <div id="weapons"></div>
-            <div id="new_weapons_button">
-                <input type="button" onclick="add_new_weapon()" value="Neue Waffe">
-            </div>
-            <hr>
-            <div id="money"></div>
-            <hr>
-            <div id="equipment"></div>
-        </form>
-    </div>
+            <div style="display: table-cell;">
+                <div id="right_box">
+                    <form>
+                        <div id="personality"></div>
+                        <div id="ideals"></div>
+                        <div id="ties"></div>
+                        <div id="taint"></div>
+                        <div id="characteristics"></div>
+                    </form>
+                </div>
 
-    <script src="document_script.js"></script>
-    <!-- <form>
+            </div>
+        </div>
+
+
+
+        <script src="document_script.js"></script>
+        <!-- <form>
         <button onclick='document.open("text/html");document.write(JSON.stringify(get_hero_data_from_form()));document.close();'>JSON</button>
         <button onclick="prepare_download()">Export</button>
         <a href="" id="export"></a>
     </form> -->
-    <!--<a id="download_link" download="test.json" href="">Dokument exportieren</a>-->
+        <!--<a id="download_link" download="test.json" href="">Dokument exportieren</a>-->
 
-    <form onsubmit="return false">
-        <button onclick="display_hero_data()">JSON</button>
-        <textarea id="json_export_field" width="100%">Heldenwerte</textarea>
-    </form>
-
+        <!-- <form onsubmit="return false">
+            <button onclick="display_hero_data()">JSON</button>
+            <textarea id="json_export_field" width="100%">Heldenwerte</textarea>
+        </form> -->
+    </div>
 </body>
 
 </html>

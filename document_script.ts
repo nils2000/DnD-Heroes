@@ -2,6 +2,10 @@
 
 //Form Construction
 
+function get_element(id:string){
+    return document.getElementById(id);
+}
+
 function named_input(name: string, size: number) {
     let input = document.createElement("input");
     input.id = name;
@@ -40,12 +44,16 @@ function append_labeled_input_field(name: string, html_element_id: string) {
     document.getElementById(html_element_id).appendChild(labeled_input(name));
 }
 
-
-function append_button(name:string,click_function:any,target_div_name:string){
+function button(name:string,click_function:any){
     var new_button = document.createElement("button");
     new_button.innerHTML = name;
     new_button.onclick = click_function;
     new_button.id = name;
+    return new_button;
+}
+
+function append_button(name:string,click_function:any,target_div_name:string){
+    var new_button = button(name,click_function);
     document.getElementById(target_div_name).appendChild(new_button);
 }
 
@@ -111,11 +119,16 @@ function weapon_stats_inputfields() {
 function table_row(list:any[]){
     var row = document.createElement("tr");
     for (var k in list){
-        var data = document.createElement("td");
-        data.appendChild(list[k]);
+        var data = table_data(list[k]);
         row.appendChild(data);
     }
     return row;
+}
+
+function table_data(item:any){
+    var td = document.createElement("td");
+    td.appendChild(item);
+    return td;
 }
 
 function attribute_table_row(attr:string){
@@ -213,9 +226,10 @@ append_hero_selector();
 document.getElementById("upper_left_box")
     .appendChild(document.createElement("br"));
 
-append_button("speichern",store_current_hero_and_refresh,"upper_left_box");
-append_button("Felder zurück setzen",clear_all_fields,"upper_left_box");
-append_button("Held löschen",delete_hero_from_storage_and_refresh,"upper_left_box");
+get_element("save_blank_and_delete_row").appendChild(table_data(button("speichern",store_current_hero_and_refresh)));
+get_element("save_blank_and_delete_row").appendChild(table_data(button("Felder zurück setzen",clear_all_fields)));
+get_element("save_blank_and_delete_row").appendChild(table_data(button("Held löschen",delete_hero_from_storage_and_refresh)));
+
 
 //AttributeTable
 
@@ -413,8 +427,7 @@ function get_list_of_stored_heroes(){
 function append_hero_selector(){
     var selector:any = selection_list(get_list_of_stored_heroes(),"Charakter auswählen","select_char");
     selector.onchange = react_to_hero_selector_changes;
-    var save_button:any = document.getElementById("speichern");
-    document.getElementById("upper_left_box").insertBefore(selector,save_button);
+    get_element("name_data_row").appendChild(table_data(selector));
     }
     
 function refresh_hero_selector(){
