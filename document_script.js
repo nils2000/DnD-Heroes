@@ -352,13 +352,17 @@ function store_hero(hero) {
         localStorage.setItem("heroes", JSON.stringify(hero_list));
     }
 }
-function delete_hero_from_storage_and_refresh(hero) {
+function delete_hero_from_storage_and_refresh() {
+    var selector = document.getElementById("select_char");
+    var hero_name = selector.value;
     var heroes = localStorage.getItem("heroes");
     var hero_list = JSON.parse(heroes);
-    localStorage.setItem("heroes", JSON.stringify(hero_list.splice(hero_list.indexOf(hero.name), 1)));
-    localStorage.removeItem(hero.Name);
-    refresh_hero_selector();
+    var index = hero_list.indexOf(hero_name);
+    hero_list.splice(index, 1);
+    localStorage.setItem("heroes", JSON.stringify(hero_list));
+    localStorage.removeItem(hero_name);
     clear_all_fields();
+    refresh_hero_selector();
 }
 function store_current_hero_and_refresh() {
     store_hero(get_hero_data_from_form());
@@ -373,10 +377,10 @@ function get_list_of_stored_heroes() {
 function append_hero_selector() {
     var selector = selection_list(get_list_of_stored_heroes(), "Charakter auswählen", "select_char");
     selector.onchange = react_to_hero_selector_changes;
-    get_element("name_data_row").appendChild(table_data(selector));
+    get_element("selector_box").appendChild(selector);
 }
 function refresh_hero_selector() {
-    var box = document.getElementById("upper_left_box");
+    var box = document.getElementById("selector_box");
     var selector = document.getElementById("select_char");
     box.removeChild(selector);
     append_hero_selector();
