@@ -119,6 +119,7 @@ function attribute_table_row(attr) {
     var inp = named_input(attr, 2);
     var mod = div(attr + "Modifikator");
     var bonus = div(attr + "Bonus");
+    inp.onchange = generate_update_function_watch_input_change_div(attr, attr + "Bonus", attribute_bonus);
     var trained = checkbox(attr + "RWTrainiert");
     var rw = div(attr + "RW");
     var rw_mod = div(attr + "RWMod");
@@ -385,6 +386,14 @@ function refresh_hero_selector() {
     box.removeChild(selector);
     append_hero_selector();
 }
+//form logic
+function generate_update_function_watch_input_change_div(input_field, output_div, modifier_func) {
+    return function () {
+        var input = get_element(input_field);
+        var output = get_element(output_div);
+        output.innerHTML = modifier_func(input.value);
+    };
+}
 function remove_weapon_fields() {
     var weapons = Array.prototype.slice.call(document.querySelectorAll('#Waffe'));
     weapons.forEach(function (element) {
@@ -413,4 +422,9 @@ function clear_all_fields() {
     var normal_input = ids.filter(function (x) { return x.tagName == "INPUT"; })
         .filter(function (x) { return x.size != 2; });
     normal_input.forEach(function (element) { return element.value = element.id; });
+}
+//document logic
+//attribute bonuses
+function attribute_bonus(attribute_value) {
+    return Math.floor((attribute_value - 10) / 2);
 }

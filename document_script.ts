@@ -137,6 +137,7 @@ function attribute_table_row(attr: string) {
     var inp = named_input(attr, 2);
     var mod = div(attr + "Modifikator");
     var bonus = div(attr + "Bonus");
+    inp.onchange = generate_update_function_watch_input_change_div(attr, attr + "Bonus", attribute_bonus);
     var trained = checkbox(attr + "RWTrainiert");
     var rw = div(attr + "RW");
     var rw_mod = div(attr + "RWMod");
@@ -443,6 +444,16 @@ function refresh_hero_selector() {
     append_hero_selector();
 }
 
+//form logic
+
+function generate_update_function_watch_input_change_div(input_field: string, output_div: string, modifier_func: any) {
+    return () => {
+        var input: any = get_element(input_field);
+        var output: any = get_element(output_div);
+        output.innerHTML = modifier_func(input.value);
+    }
+}
+
 function remove_weapon_fields() {
     var weapons = Array.prototype.slice.call(document.querySelectorAll('#Waffe'));
     weapons.forEach(element => {
@@ -477,4 +488,10 @@ function clear_all_fields() {
     var normal_input = ids.filter(x => x.tagName == "INPUT")
         .filter(x => x.size != 2);
     normal_input.forEach(element => element.value = element.id);
+}
+
+//document logic
+//attribute bonuses
+function attribute_bonus(attribute_value: number) {
+    return Math.floor((attribute_value - 10) / 2);
 }
