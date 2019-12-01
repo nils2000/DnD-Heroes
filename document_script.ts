@@ -121,11 +121,11 @@ function table_row(list:any[]){
 function attribute_table_row(attr:string){
     var bez = document.createTextNode(attr);
     var inp = named_input(attr,2);
-    var mod = div(attr + "_modifikator");
-    var bonus = div(attr + "_bonus");
-    var trained = checkbox(attr + "_RW_trainiert");
-    var rw = div(attr + "_RW");
-    var rw_mod = div(attr + "_RW_mod");
+    var mod = div(attr + "Modifikator");
+    var bonus = div(attr + "Bonus");
+    var trained = checkbox(attr + "RWTrainiert");
+    var rw = div(attr + "RW");
+    var rw_mod = div(attr + "RWMod");
     return table_row([bez,inp,mod,bonus,trained,rw,rw_mod]);
     }
 
@@ -168,7 +168,7 @@ function add_skills() {
         "Überzeugen(Cha)"
     ];
     let inputs = labeled_input_fields(skills);
-    var checkbox_names = inputs.map(n => n+"_checked");
+    var checkbox_names = skills.map(n => n+"_trainiert");
     var checkboxes = checkboxes_for_labeld_input_fields(checkbox_names);
     let skill_div = document.getElementById("skills");
     for (let i = 0; i < inputs.length; i++) {
@@ -266,6 +266,8 @@ function get_hero_data_from_form() {
         
         }
     });
+    var checked_checkboxes = all_checkboxes().filter(x => x.checked);
+    checked_checkboxes.forEach(x => hero_stats[x.id] = "on");
     return hero_stats;
 }
 
@@ -422,26 +424,38 @@ function refresh_hero_selector(){
     append_hero_selector();
     }
 
+function remove_weapon_fields(){
+    var weapons = Array.prototype.slice.call(document.querySelectorAll('#Waffe'));
+    weapons.forEach(element => {
+        var weapon_div_node = element.parentNode.parentNode;
+        var weapon_div_parent_node = weapon_div_node.parentNode;
+        weapon_div_parent_node.removeChild(weapon_div_node);
+    });
+}
+
+function all_checkboxes(){
+    var chkbx = Array.prototype.slice.call(document.querySelectorAll('[id]'));
+    return chkbx.filter(x => x.type == "checkbox");
+}
+
 function clear_all_fields(){
-    var ids = document.querySelectorAll('[id]');
-    Array.prototype.forEach.call(ids, function (element, i) {
-        if (element.tagName == "INPUT" ) {
-            if (element.id == "Waffe" || element.id == "SchadenUndArt" || element.id == "Bonus")
-                //Waffenfelder löschen
-                {   
-                    if (element.id == "Waffe"){
-                        var weapon_div_node = element.parentNode.parentNode;
-                        var weapon_div_parent_node = weapon_div_node.parentNode;
-                        weapon_div_parent_node.removeChild(weapon_div_node);
-                    }
-                }
-            else
-            if (element.value != "" && element.value != element.id)
-                if (element.type != "checkbox" )
-                    {if (element.size != 2) element.value = element.id; else element.value = "";}
-                else element.checked = false;
-                
-        }  
-        if(element.tagName == "TEXTAREA") element.value = element.id;
-});
+    remove_weapon_fields();
+    var ids = Array.prototype.slice.call(document.querySelectorAll('[id]'));
+    
+    var checkboxes = ids.filter(x => x.type == "checkbox");
+    checkboxes.forEach(element => {
+        element.checked = false;
+    });
+
+    var small_fields = ids.filter(x => x.size == 2);
+    small_fields.forEach(element => {
+        element.value = "";
+    });
+    
+    var textareas = ids.filter(x => x.tagName == "TEXTAREA");
+    textareas.forEach(element => element.value = element.id);
+
+    var normal_input = ids.filter(x => x.tagName == "INPUT")
+                            .filter(x => x.size != 2);
+    normal_input.forEach(element => element.value = element.id);
 }
