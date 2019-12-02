@@ -170,6 +170,16 @@ function add_skills() {
         skill_div.appendChild(document.createElement("br"));
     }
 }
+function insert_race_selector() {
+    var races = ["Volk", "Hochelf", "Waldelf", "Dunkelelf",
+        "Halbling(Leichtfuß)", "Halbling(Stämmig)", "Mensch",
+        "Gebirgszwerg", "Hügelzwerg",
+        "Drachenblütig", "Felsengnom", "Waldgnom",
+        "Halbelf", "Halbork", "Tiefling"];
+    var selector = selection_list(races, "", "race_selector");
+    get_element("race_selector_box").appendChild(selector);
+}
+insert_race_selector();
 add_skills();
 append_labeled_input_field("passive Weisheit (Wahrnehmung)", "passive_wisdom");
 append_named_textarea("weitere Übung und Sprachen", 12, "practice_and_languages");
@@ -244,6 +254,8 @@ function get_hero_data_from_form() {
     });
     var checked_checkboxes = all_checkboxes().filter(function (x) { return x.checked; });
     checked_checkboxes.forEach(function (x) { return hero_stats[x.id] = "on"; });
+    var race_selector = get_element("race_selector");
+    hero_stats["Volk"] = race_selector.value;
     return hero_stats;
 }
 function react_to_hero_selector_changes() {
@@ -262,7 +274,11 @@ function load_hero_data_into_form(hero) {
     //TODO: restore checkboxes
     console.log(hero);
     for (var k in hero) {
-        if (hero[k] == "on") {
+        if (k == "Volk") {
+            var race_selector = get_element("race_selector");
+            race_selector.value = hero[k];
+        }
+        else if (hero[k] == "on") {
             set_checkbox(k);
         }
         else {
@@ -422,6 +438,8 @@ function clear_all_fields() {
     var normal_input = ids.filter(function (x) { return x.tagName == "INPUT"; })
         .filter(function (x) { return x.size != 2; });
     normal_input.forEach(function (element) { return element.value = element.id; });
+    var race_selector = get_element("race_selector");
+    race_selector.value = "Volk";
 }
 //document logic
 //attribute bonuses

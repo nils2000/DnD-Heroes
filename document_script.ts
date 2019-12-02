@@ -193,7 +193,17 @@ function add_skills() {
     }
 }
 
+function insert_race_selector() {
+    var races = ["Volk", "Hochelf", "Waldelf", "Dunkelelf",
+        "Halbling(Leichtfuß)", "Halbling(Stämmig)", "Mensch",
+        "Gebirgszwerg", "Hügelzwerg",
+        "Drachenblütig", "Felsengnom", "Waldgnom",
+        "Halbelf", "Halbork", "Tiefling"];
+    var selector = selection_list(races, "", "race_selector");
+    get_element("race_selector_box").appendChild(selector);
+}
 
+insert_race_selector();
 add_skills();
 
 append_labeled_input_field("passive Weisheit (Wahrnehmung)", "passive_wisdom");
@@ -284,6 +294,8 @@ function get_hero_data_from_form() {
     });
     var checked_checkboxes = all_checkboxes().filter(x => x.checked);
     checked_checkboxes.forEach(x => hero_stats[x.id] = "on");
+    var race_selector: any = get_element("race_selector");
+    hero_stats["Volk"] = race_selector.value;
     return hero_stats;
 }
 
@@ -305,21 +317,25 @@ function load_hero_data_into_form(hero: any) {
     //TODO: restore checkboxes
     console.log(hero);
     for (var k in hero) {
-        if (hero[k] == "on") { set_checkbox(k); } else {
-            if (k != "Waffen" && k != "weapons")
-                display_value(k, hero[k]);
-            if (k === "Waffen") {
-                var w = hero["Waffen"];
-                console.log(w);
-                for (var waffe in w) {
-                    console.log(w[waffe]);
-                    var w_form = add_new_weapon();
-                    w_form.querySelector("#Waffe").value = w[waffe]["Waffe"];
-                    w_form.querySelector("#Bonus").value = w[waffe]["Bonus"];
-                    w_form.querySelector("#SchadenUndArt").value = w[waffe]["SchadenUndArt"];
+        if (k == "Volk") {
+            var race_selector: any = get_element("race_selector");
+            race_selector.value = hero[k];
+        } else
+            if (hero[k] == "on") { set_checkbox(k); } else {
+                if (k != "Waffen" && k != "weapons")
+                    display_value(k, hero[k]);
+                if (k === "Waffen") {
+                    var w = hero["Waffen"];
+                    console.log(w);
+                    for (var waffe in w) {
+                        console.log(w[waffe]);
+                        var w_form = add_new_weapon();
+                        w_form.querySelector("#Waffe").value = w[waffe]["Waffe"];
+                        w_form.querySelector("#Bonus").value = w[waffe]["Bonus"];
+                        w_form.querySelector("#SchadenUndArt").value = w[waffe]["SchadenUndArt"];
+                    }
                 }
             }
-        }
     }
 }
 
@@ -488,6 +504,9 @@ function clear_all_fields() {
     var normal_input = ids.filter(x => x.tagName == "INPUT")
         .filter(x => x.size != 2);
     normal_input.forEach(element => element.value = element.id);
+
+    var race_selector: any = get_element("race_selector");
+    race_selector.value = "Volk";
 }
 
 //document logic
